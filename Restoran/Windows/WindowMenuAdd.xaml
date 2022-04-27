@@ -1,0 +1,18 @@
+﻿<Window x:Class="Restoran.Windows.WindowMenuAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restoran.Windows"
+        mc:Ignorable="d"
+        Title="Добавление и редактирование меню" Height="174.01" Width="247.826" Loaded="Window_Loaded">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Height="65" Margin="10,12,0,0" VerticalAlignment="Top" Width="215" Background="#19000000">
+            <Label Content="название меню"/>
+            <TextBox x:Name="txtName" Height="23" TextWrapping="Wrap"/>
+        </StackPanel>
+        <Button Content="добавить" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="215" Click="Button_Click"/>
+        <Button x:Name="btnMenuRedact" Content="редактировать" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="215" Click="btnMenuRedact_Click"/>
+
+    </Grid>
+</Window>

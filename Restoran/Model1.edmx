@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище RestoranModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TbDishes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ingredients" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="idMenu" Type="int" />
+        </EntityType>
+        <EntityType Name="TbKlients">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="orders" Type="int" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="discount" Type="int" />
+        </EntityType>
+        <EntityType Name="TbMenus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TbOrders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="sum" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="idKlient" Type="int" />
+          <Property Name="idDish" Type="int" />
+        </EntityType>
+        <EntityType Name="TbUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="numberTable" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_TbDishes_TbMenus">
+          <End Role="TbMenus" Type="Self.TbMenus" Multiplicity="0..1" />
+          <End Role="TbDishes" Type="Self.TbDishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbMenus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbDishes">
+              <PropertyRef Name="idMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbOrders_TbDishes">
+          <End Role="TbDishes" Type="Self.TbDishes" Multiplicity="0..1" />
+          <End Role="TbOrders" Type="Self.TbOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbDishes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbOrders">
+              <PropertyRef Name="idDish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbOrders_TbKlients">
+          <End Role="TbKlients" Type="Self.TbKlients" Multiplicity="0..1" />
+          <End Role="TbOrders" Type="Self.TbOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbKlients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbOrders">
+              <PropertyRef Name="idKlient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbOrders_TbUsers">
+          <End Role="TbUsers" Type="Self.TbUsers" Multiplicity="1" />
+          <End Role="TbOrders" Type="Self.TbOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbOrders">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RestoranModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbDishes" EntityType="Self.TbDishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbKlients" EntityType="Self.TbKlients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbMenus" EntityType="Self.TbMenus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbOrders" EntityType="Self.TbOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbUsers" EntityType="Self.TbUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TbDishes_TbMenus" Association="Self.FK_TbDishes_TbMenus">
+            <End Role="TbMenus" EntitySet="TbMenus" />
+            <End Role="TbDishes" EntitySet="TbDishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbOrders_TbDishes" Association="Self.FK_TbOrders_TbDishes">
+            <End Role="TbDishes" EntitySet="TbDishes" />
+            <End Role="TbOrders" EntitySet="TbOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbOrders_TbKlients" Association="Self.FK_TbOrders_TbKlients">
+            <End Role="TbKlients" EntitySet="TbKlients" />
+            <End Role="TbOrders" EntitySet="TbOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbOrders_TbUsers" Association="Self.FK_TbOrders_TbUsers">
+            <End Role="TbUsers" EntitySet="TbUsers" />
+            <End Role="TbOrders" EntitySet="TbOrders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestoranModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TbDishes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ingredients" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="idMenu" Type="Int32" />
+          <NavigationProperty Name="TbMenus" Relationship="Self.FK_TbDishes_TbMenus" FromRole="TbDishes" ToRole="TbMenus" />
+          <NavigationProperty Name="TbOrders" Relationship="Self.FK_TbOrders_TbDishes" FromRole="TbDishes" ToRole="TbOrders" />
+        </EntityType>
+        <EntityType Name="TbMenus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TbDishes" Relationship="Self.FK_TbDishes_TbMenus" FromRole="TbMenus" ToRole="TbDishes" />
+        </EntityType>
+        <EntityType Name="TbOrders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sum" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="idKlient" Type="Int32" />
+          <Property Name="idDish" Type="Int32" />
+          <NavigationProperty Name="TbDishes" Relationship="Self.FK_TbOrders_TbDishes" FromRole="TbOrders" ToRole="TbDishes" />
+          <NavigationProperty Name="TbKlients" Relationship="RestoranModel.FK_TbOrders_TbKlients" FromRole="TbOrders" ToRole="TbKlients" />
+          <NavigationProperty Name="TbUsers" Relationship="RestoranModel.FK_TbOrders_TbUsers" FromRole="TbOrders" ToRole="TbUsers" />
+        </EntityType>
+        <Association Name="FK_TbDishes_TbMenus">
+          <End Role="TbMenus" Type="Self.TbMenus" Multiplicity="0..1" />
+          <End Role="TbDishes" Type="Self.TbDishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbMenus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbDishes">
+              <PropertyRef Name="idMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbOrders_TbDishes">
+          <End Role="TbDishes" Type="Self.TbDishes" Multiplicity="0..1" />
+          <End Role="TbOrders" Type="Self.TbOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbDishes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbOrders">
+              <PropertyRef Name="idDish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RestoranEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TbDishes" EntityType="Self.TbDishes" />
+          <EntitySet Name="TbMenus" EntityType="Self.TbMenus" />
+          <EntitySet Name="TbOrders" EntityType="Self.TbOrders" />
+          <AssociationSet Name="FK_TbDishes_TbMenus" Association="Self.FK_TbDishes_TbMenus">
+            <End Role="TbMenus" EntitySet="TbMenus" />
+            <End Role="TbDishes" EntitySet="TbDishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbOrders_TbDishes" Association="Self.FK_TbOrders_TbDishes">
+            <End Role="TbDishes" EntitySet="TbDishes" />
+            <End Role="TbOrders" EntitySet="TbOrders" />
+          </AssociationSet>
+          <EntitySet Name="TbKlients" EntityType="RestoranModel.TbKlients" />
+          <EntitySet Name="TbUsers" EntityType="RestoranModel.TbUsers" />
+          <AssociationSet Name="FK_TbOrders_TbKlients" Association="RestoranModel.FK_TbOrders_TbKlients">
+            <End Role="TbKlients" EntitySet="TbKlients" />
+            <End Role="TbOrders" EntitySet="TbOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbOrders_TbUsers" Association="RestoranModel.FK_TbOrders_TbUsers">
+            <End Role="TbUsers" EntitySet="TbUsers" />
+            <End Role="TbOrders" EntitySet="TbOrders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TbKlients">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="orders" Type="Int32" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="discount" Type="Int32" />
+          <NavigationProperty Name="TbOrders" Relationship="RestoranModel.FK_TbOrders_TbKlients" FromRole="TbKlients" ToRole="TbOrders" />
+        </EntityType>
+        <EntityType Name="TbUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="numberTable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TbOrders" Relationship="RestoranModel.FK_TbOrders_TbUsers" FromRole="TbUsers" ToRole="TbOrders" />
+        </EntityType>
+        <Association Name="FK_TbOrders_TbKlients">
+          <End Type="RestoranModel.TbKlients" Role="TbKlients" Multiplicity="0..1" />
+          <End Type="RestoranModel.TbOrders" Role="TbOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbKlients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbOrders">
+              <PropertyRef Name="idKlient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbOrders_TbUsers">
+          <End Type="RestoranModel.TbUsers" Role="TbUsers" Multiplicity="1" />
+          <End Type="RestoranModel.TbOrders" Role="TbOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TbOrders">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RestoranModelContainer" CdmEntityContainer="RestoranEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RestoranModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbDishes">
+            <EntityTypeMapping TypeName="RestoranModel.TbDishes">
+              <MappingFragment StoreEntitySet="TbDishes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ingredients" ColumnName="ingredients" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbMenus">
+            <EntityTypeMapping TypeName="RestoranModel.TbMenus">
+              <MappingFragment StoreEntitySet="TbMenus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbOrders">
+            <EntityTypeMapping TypeName="RestoranModel.TbOrders">
+              <MappingFragment StoreEntitySet="TbOrders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idKlient" ColumnName="idKlient" />
+                <ScalarProperty Name="idDish" ColumnName="idDish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbKlients">
+            <EntityTypeMapping TypeName="RestoranModel.TbKlients">
+              <MappingFragment StoreEntitySet="TbKlients">
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="orders" ColumnName="orders" />
+                <ScalarProperty Name="firstName" ColumnName="first_name" />
+                <ScalarProperty Name="lastName" ColumnName="last_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbUsers">
+            <EntityTypeMapping TypeName="RestoranModel.TbUsers">
+              <MappingFragment StoreEntitySet="TbUsers">
+                <ScalarProperty Name="numberTable" ColumnName="numberTable" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="firstName" ColumnName="first_name" />
+                <ScalarProperty Name="lastName" ColumnName="last_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
