@@ -89,6 +89,11 @@ namespace Restoran.Windows
         {
             if (checkData())
             {
+                /// <summary>
+                /// Создаётся объект класса.
+                /// Заполняется атрибуты класса.
+                /// Сохраняется объект в БД.
+                /// </summary>
                 TbKlients klient = new TbKlients();
                 klient.lastName = txtLastName.Text;
                 klient.firstName = txtFirstName.Text;
@@ -115,6 +120,13 @@ namespace Restoran.Windows
         {
             if (checkData() & listKlient.SelectedItem != null)
             {
+                /// <summary>
+                /// Вытягивается с строка с БД с данными.
+                /// Заполняется по новой.
+                /// Сохраняется с изменёнными данным.
+                /// </summary>
+                /// <param name="sender"></param>
+                /// <param name="e"></param>
                 foreach (var n in db.TbKlients)
                 {
                     if (n.id == idKlient)

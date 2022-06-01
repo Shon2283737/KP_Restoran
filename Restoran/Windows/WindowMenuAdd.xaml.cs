@@ -34,6 +34,13 @@ namespace Restoran.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            /// Создаётся объект класса.
+            /// Заполняется атрибуты класса.
+            /// Сохраняется объект в БД.
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
             if (txtName.Text != "")
             {
                 TbMenus menu = new TbMenus();
@@ -48,6 +55,13 @@ namespace Restoran.Windows
 
         private void btnMenuRedact_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            /// Вытягивается с строка с БД с данными.
+            /// Заполняется по новой.
+            /// Сохраняется с изменёнными данным.
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
             foreach (var n in db.TbMenus)
             {
                 if (n.id == idMenu)

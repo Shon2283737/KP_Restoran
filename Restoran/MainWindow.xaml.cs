@@ -31,6 +31,7 @@ namespace Restoran
 
         private void Button_Click_Authorization(object sender, RoutedEventArgs e)
         {
+            // Проверка всех записей на соответствие паролю и логину.
             foreach (var n in db.TbUsers)
             {
                 if(n.login == txtLogin.Text && n.password == txtPassword.Text)
@@ -45,9 +46,9 @@ namespace Restoran
                     this.Close();
                     break;
                 }
-                
+                MessageBox.Show("Неправильный логин или пароль.");
             }
-            MessageBox.Show("Неправильный логин или пароль.");
+            
         }
     }
 }

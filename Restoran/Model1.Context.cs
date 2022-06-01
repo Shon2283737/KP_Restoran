@@ -25,11 +25,13 @@ namespace Restoran
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<menu_dishes> menu_dishes { get; set; }
+        public virtual DbSet<orders_dishes> orders_dishes { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TbDishes> TbDishes { get; set; }
+        public virtual DbSet<TbKlients> TbKlients { get; set; }
         public virtual DbSet<TbMenus> TbMenus { get; set; }
         public virtual DbSet<TbOrders> TbOrders { get; set; }
-        public virtual DbSet<TbKlients> TbKlients { get; set; }
         public virtual DbSet<TbUsers> TbUsers { get; set; }
     }
 }

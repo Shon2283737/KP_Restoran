@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="437d921b0dbb4cafb11496c4a6afff0b" Name="Diagram1">
-        <EntityTypeShape EntityType="RestoranModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="ab156de4366b40d7aaee43060669d771" Name="Diagram1">
+        <EntityTypeShape EntityType="RestoranModel.menu_dishes" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestoranModel.orders_dishes" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestoranModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RestoranModel.TbDishes" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestoranModel.TbKlients" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RestoranModel.TbMenus" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RestoranModel.TbOrders" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestoranModel.TbUsers" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
         <AssociationConnector Association="RestoranModel.FK_TbDishes_TbMenus" ManuallyRouted="false" />
         <AssociationConnector Association="RestoranModel.FK_TbOrders_TbDishes" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="RestoranModel.TbKlients" Width="1.5" PointX="3.375" PointY="5.25" />
-        <EntityTypeShape EntityType="RestoranModel.TbUsers" Width="1.5" PointX="0.75" PointY="5" />
-        <AssociationConnector Association="RestoranModel.FK_TbOrders_TbKlients" />
-        <AssociationConnector Association="RestoranModel.FK_TbOrders_TbUsers" />
+        <AssociationConnector Association="RestoranModel.FK_TbOrders_TbKlients" ManuallyRouted="false" />
+        <AssociationConnector Association="RestoranModel.FK_TbOrders_TbUsers" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

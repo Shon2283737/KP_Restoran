@@ -41,7 +41,7 @@ namespace Restoran.Windows
                 cmbMenus.Items.Add(n.name);
             }
         }
-
+        // проверка заполнения данных.
         bool checkData()
         {
             bool success = true;
@@ -52,10 +52,18 @@ namespace Restoran.Windows
 
         }
 
+        /// <summary>
+        /// Создаётся объект класса.
+        /// Заполняется атрибуты класса.
+        /// Сохраняется объект в БД.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Dish_Add(object sender, RoutedEventArgs e)
         {
             if (checkData())
             {
+                // Создание объекта класса
                 TbDishes dish = new TbDishes();
                 dish.idMenu = idMenu();
                 dish.name = txtName.Text;
@@ -68,7 +76,13 @@ namespace Restoran.Windows
             }
             else MessageBox.Show("Заполните все поля.");
         }
-
+        /// <summary>
+        /// Вытягивается с строка с БД с данными.
+        /// Заполняется по новой.
+        /// Сохраняется с изменёнными данным.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDishRedact_Click(object sender, RoutedEventArgs e)
         {
             if (checkData())
